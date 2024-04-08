@@ -1,0 +1,50 @@
+﻿@model Tour
+
+<form method="post" target="_self">
+    <div class="row">
+        <div class="col-6">
+            <img class="" src="/images/default.png" style="width: 600px; height: 400px;" />
+        </div>
+        <div class="col-6">
+            <div class="validation" asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="Guide">Название:</label>
+                <input type="text" asp-for="Guide" placeholder="Guide" value="@Model.Guide">
+                <span asp-validation-for="Guide"></span>
+            </div>
+            <div>
+                <label asp-for="Route">Маршрут:</label>
+                <input type="text" asp-for="Route" placeholder="Route" value="@Model.Route">
+                <span asp-validation-for="Route"></span>
+            </div>
+            <div>
+                <label asp-for="RegistrationIsOpen">Регистрация открыта?</label>
+                <input type="checkbox" asp-for="RegistrationIsOpen" value="true"></input>
+            </div>
+            <div>
+                <select 
+                    asp-for="Difficulty" 
+                    asp-items="@Html.GetEnumSelectList<TourDifficulty>()" 
+                    class="form-control"
+                    value="@Model.Difficulty">
+                 </select>
+            </div>
+            <div>
+                <label asp-for="GatheringPlace">Место отправления:</label>
+                <input type="text" asp-for="GatheringPlace" placeholder="GatheringPlace" value="@Model.GatheringPlace">
+                <span asp-validation-for="GatheringPlace"></span>
+            </div>
+            <div>
+                <label asp-for="DepartureDate">Дата:</label>
+                <input type="date" asp-for="DepartureDate" placeholder="DepartureDate" value="@Model.DepartureDate">
+                <span asp-validation-for="DepartureDate"></span>
+            </div>
+            <div>
+                <button type="submit" asp-action="EditTour" asp-controller="Administrator" asp-route-tourId="@Model.Id">
+                    Редактировать тур
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<a class="btn btn-light" style="margin:10px" asp-controller="Home" asp-action="Index" role="button">К списку туров</a>

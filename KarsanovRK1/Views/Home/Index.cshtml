@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Tour>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<a asp-controller="Administrator" asp-action="AddTour" role="button">Добавить новый тур</a>
+
+<div class="row">
+    @foreach (var tour in Model)
+    {
+        <div class="col-3 card shadow">
+            <div class="card-body">
+                <a style="color: black" href="#">
+                    <h5>@tour.Guide</h5>
+                </a>
+                <h5>@tour.GatheringPlace</h5>
+                <p>@tour.Route</p>
+                <p>@EnumHelper.GetDisplayName(tour.Difficulty)</p>
+                <p>@tour.DepartureDate</p>
+                @if (tour.RegistrationIsOpen)
+                {
+                    <h5>Регистрация открыта</h5>
+                    <a class="btn btn-dark" asp-controller="Administrator" asp-action="CloseRegistration" asp-route-tourId="@tour.Id" role="button">
+                        Закрыть регистрацию
+                    </a>
+                }
+                else
+                {
+                    <h5>Регистрация закрыта</h5>
+                    <a class="btn btn-dark" asp-controller="Administrator" asp-action="OpenRegistration" asp-route-tourId="@tour.Id" role="button">
+                        Открыть регистрацию
+                    </a>
+                }
+                <a class="btn btn-dark" asp-action="EditTour" asp-controller="Administrator" asp-route-tourId="@tour.Id" role="button">
+                    Редактировать
+                </a>
+            </div>
+        </div>
+    }
+</div>
